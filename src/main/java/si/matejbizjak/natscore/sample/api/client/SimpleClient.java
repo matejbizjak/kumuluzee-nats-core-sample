@@ -7,7 +7,7 @@ import com.kumuluz.ee.nats.annotations.Subject;
  * @author Matej Bizjak
  */
 
-@RegisterNatsClient
+@RegisterNatsClient(connection = "default")
 public interface SimpleClient {
 
     @Subject(value = "simple1")

@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
  * @author Matej Bizjak
  */
 
-@NatsListener
+@NatsListener(connection = "default")
 public class SimpleListener {
 
     @Subject(value = "simple1")
