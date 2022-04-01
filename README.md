@@ -1,4 +1,4 @@
-#KumuluzEE NATS Core sample:
+# KumuluzEE NATS Core sample:
 
 ## TODO
 
