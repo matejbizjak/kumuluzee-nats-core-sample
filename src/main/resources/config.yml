@@ -1,0 +1,24 @@
+kumuluzee:
+  nats-core:
+    response-timeout: 5
+    servers:
+      - name: default
+        addresses:
+          - nats://localhost:4222
+      - name: secure-unverified-client
+        addresses:
+          - tls://localhost:4223
+          - opentls://localhost:4223
+        tls:
+#          trust-store-path: C:\Users\Matej\IdeaProjects\Nats Core Sample\src\main\resources\certs\truststore.jks
+#          trust-store-password: password2
+          certificate-path: C:\Users\Matej\IdeaProjects\Nats Core Sample\src\main\resources\certs\server-cert.pem
+      - name: secure
+        addresses:
+          - tls://localhost:4224
+        tls:
+#          trust-store-path: C:\Users\Matej\IdeaProjects\Nats Core Sample\src\main\resources\certs\truststore.jks
+#          trust-store-password: password2
+          certificate-path: C:\Users\Matej\IdeaProjects\Nats Core Sample\src\main\resources\certs\server-cert.pem
+          key-store-path: C:\Users\Matej\IdeaProjects\Nats Core Sample\src\main\resources\certs\keystore.jks
+          key-store-password: password
