@@ -1,7 +1,6 @@
 package si.matejbizjak.natscore.sample.api.rest;
 
-
-import com.kumuluz.ee.nats.annotations.NatsClient;
+import com.kumuluz.ee.nats.core.annotations.NatsClient;
 import si.matejbizjak.natscore.sample.api.client.ComplexClient;
 import si.matejbizjak.natscore.sample.api.entity.Demo;
 

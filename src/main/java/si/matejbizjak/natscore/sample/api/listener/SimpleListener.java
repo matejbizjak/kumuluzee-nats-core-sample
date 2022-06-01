@@ -1,9 +1,7 @@
 package si.matejbizjak.natscore.sample.api.listener;
 
-import com.kumuluz.ee.nats.annotations.NatsListener;
-import com.kumuluz.ee.nats.annotations.Subject;
-
-import java.util.concurrent.TimeUnit;
+import com.kumuluz.ee.nats.core.annotations.NatsListener;
+import com.kumuluz.ee.nats.core.annotations.Subject;
 
 /**
  * @author Matej Bizjak
@@ -33,6 +31,12 @@ public class SimpleListener {
     public String receiveDynamicSubject(String value) {
         System.out.println(value);
         return value.toUpperCase() + "_DYNAMIC_SUBJECT";
+    }
+
+    @Subject(value = "simple_async")
+    public String receiveAndReturnAsync(String value) {
+        System.out.println(value);
+        return value.toUpperCase() + "_ASYNC";
     }
 
     @Subject(value = "empty")

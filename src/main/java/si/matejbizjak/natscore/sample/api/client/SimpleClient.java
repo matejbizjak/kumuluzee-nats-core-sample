@@ -1,7 +1,9 @@
 package si.matejbizjak.natscore.sample.api.client;
 
-import com.kumuluz.ee.nats.annotations.RegisterNatsClient;
-import com.kumuluz.ee.nats.annotations.Subject;
+import com.kumuluz.ee.nats.core.annotations.RegisterNatsClient;
+import com.kumuluz.ee.nats.core.annotations.Subject;
+
+import java.util.concurrent.Future;
 
 /**
  * @author Matej Bizjak
@@ -17,6 +19,9 @@ public interface SimpleClient {
 
     @Subject(value = "simple2")
     String sendSimpleResponse(String value);
+
+    @Subject(value = "simple_async")
+    Future<String> sendSimpleResponseAsync(String value);
 
     @Subject("empty")
     String sendEmptyPayload(String value);

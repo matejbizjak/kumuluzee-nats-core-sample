@@ -1,7 +1,6 @@
 package si.matejbizjak.natscore.sample.api.rest;
 
-
-import com.kumuluz.ee.nats.annotations.NatsClient;
+import com.kumuluz.ee.nats.core.annotations.NatsClient;
 import si.matejbizjak.natscore.sample.api.client.SimpleClient;
 
 import javax.enterprise.context.RequestScoped;
@@ -12,6 +11,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * @author Matej Bizjak
@@ -46,6 +47,18 @@ public class SimpleResource {
     public Response getSimpleResponse() {
         String msgResponse = simpleClient.sendSimpleResponse("another simple string");
         return Response.ok(String.format("Even more, I also received a response. It says: '%s'", msgResponse)).build();
+    }
+
+    @GET
+    @Path("/withResponseAsync")
+    public Response getSimpleResponseAsync() {
+        Future<String> future = simpleClient.sendSimpleResponseAsync("another simple string");
+        try {
+            String msgResponse = future.get();
+            return Response.ok(String.format("Even more, I also received a response asynchronously. It says: '%s'", msgResponse)).build();
+        } catch (ExecutionException | InterruptedException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
     }
 
     @GET
