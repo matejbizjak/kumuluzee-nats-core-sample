@@ -25,8 +25,7 @@ public class ComplexResource {
     @NatsClient
     private ComplexClient complexClient;
 
-    private final Demo demo = new Demo("matej", 12.4, LocalDateTime.now(), 34
-            , new Demo.InnerDemo("bizjak", 23.12f));
+    private final Demo demo = new Demo("john", 12.4, LocalDateTime.now(), 34);
 
     @GET
     @Path("/")

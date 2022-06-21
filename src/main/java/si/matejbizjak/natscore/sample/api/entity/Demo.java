@@ -9,17 +9,14 @@ public class Demo {
     private Double doubleNumber;
     private LocalDateTime dateTime;
     private int intNumber;
-    private InnerDemo innerDemo;
-
     public Demo() {
     }
 
-    public Demo(String name, Double doubleNumber, LocalDateTime dateTime, int intNumber, InnerDemo innerDemo) {
+    public Demo(String name, Double doubleNumber, LocalDateTime dateTime, int intNumber) {
         this.name = name;
         this.doubleNumber = doubleNumber;
         this.dateTime = dateTime;
         this.intNumber = intNumber;
-        this.innerDemo = innerDemo;
     }
 
     public String getName() {
@@ -52,42 +49,5 @@ public class Demo {
 
     public void setIntNumber(int intNumber) {
         this.intNumber = intNumber;
-    }
-
-    public InnerDemo getInnerDemo() {
-        return innerDemo;
-    }
-
-    public void setInnerDemo(InnerDemo innerDemo) {
-        this.innerDemo = innerDemo;
-    }
-
-    public static class InnerDemo {
-        private String name2;
-        private float floatNumber;
-
-        public InnerDemo() {
-        }
-
-        public InnerDemo(String name2, float floatNumber) {
-            this.name2 = name2;
-            this.floatNumber = floatNumber;
-        }
-
-        public String getName2() {
-            return name2;
-        }
-
-        public void setName2(String name2) {
-            this.name2 = name2;
-        }
-
-        public float getFloatNumber() {
-            return floatNumber;
-        }
-
-        public void setFloatNumber(float floatNumber) {
-            this.floatNumber = floatNumber;
-        }
     }
 }

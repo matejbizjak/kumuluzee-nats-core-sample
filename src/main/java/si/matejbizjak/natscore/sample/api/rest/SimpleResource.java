@@ -50,18 +50,6 @@ public class SimpleResource {
     }
 
     @GET
-    @Path("/withResponseAsync")
-    public Response getSimpleResponseAsync() {
-        Future<String> future = simpleClient.sendSimpleResponseAsync("another simple string");
-        try {
-            String msgResponse = future.get();
-            return Response.ok(String.format("Even more, I also received a response asynchronously. It says: '%s'", msgResponse)).build();
-        } catch (ExecutionException | InterruptedException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-        }
-    }
-
-    @GET
     @Path("/emptyPayload")
     public Response getEmptySubjectResponse() {
         String msgResponse = simpleClient.sendEmptyPayload(null);

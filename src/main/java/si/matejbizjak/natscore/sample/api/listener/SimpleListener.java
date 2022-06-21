@@ -43,6 +43,5 @@ public class SimpleListener {
     public String receiveEmpty(String value) {
         System.out.println(value);
         return value != null ? value.toUpperCase() + "_EMPTY_SUBJECT" : null;
-//        return value.toUpperCase();
     }
 }
