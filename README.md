@@ -463,3 +463,8 @@ kumuluzee:
 ```
 
 For Mutual TLS you also need to specify a key store.
+
+### Build the microservice and run it
+
+To build the microservice and run the example, use the commands as described in previous sections.
+
