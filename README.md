@@ -1,12 +1,12 @@
 # KumuluzEE NATS Core sample
 
-> Develop REST services that produces and consumes messages for the NATS Core connective technology  
+> Develop REST services that produces and consumes messages using the NATS Core connective technology  
 
-The objective of this sample is to show how to produce and consume NATS Core messages with a simple Rest service using KumuluzEE NATS Core extension.
+The objective of this sample is to show how to produce and consume NATS Core messages with a simple REST service using KumuluzEE NATS Core extension.
 The tutorial will guide you through all the necessary steps.
 You will add KumuluzEE dependencies into pom.xml.
-You will develop two simple REST services, which uses KumuluzEE NATS Core extension for producing messages
-and also few simple annotated methods, which uses the KumuluzEE NATS Core extension for consuming messages.
+You will develop two simple REST services, which use KumuluzEE NATS Core extension for producing messages
+and also few simple annotated methods, which use the KumuluzEE NATS Core extension for consuming messages.
 
 Required knowledge: basic familiarity with JAX-RS and REST; basic familiarity with NATS Core.
 
@@ -37,7 +37,7 @@ In order to run this example you will need the following:
 ## Prerequisites
 
 To run this sample you will need to start a few instances of NATS servers.
-You can do this easily with Docker Compose with the configuration file we provided in the `util/run-nats-server/` folder.
+You can do this easily with Docker Compose using the configuration file we provided in the `util/run-nats-server/` folder.
 
 Simply run: 
 ```
@@ -80,7 +80,7 @@ mvn clean package
     ```
 4. Producing messages:
 
-    There are 7 REST endpoints available that produce messages.
+    There are seven REST endpoints available that produce messages.
     You can import the Postman collection located in the `util/postman` folder.
     Each of them produces a message that is sent to the NATS server and can be retrieved by consumers (next step).
     Some producers also expects a response from the consumer. We can see the response in the HTTP response body.
@@ -362,7 +362,7 @@ Let's configure 2 NATS connections we need for this application:
 
 ```xml
 kumuluzee:
-  nats-core:
+  nats:
     response-timeout: 5
     servers:
       - name: default
@@ -423,7 +423,7 @@ See the next section to learn how to set up the TLS.
 ##### Default server connection with a custom response timeout
 ```xml
 kumuluzee:
-  nats-core:
+  nats:
     response-timeout: 5
 ```
 
@@ -431,7 +431,7 @@ kumuluzee:
 
 ```xml
 kumuluzee:
-  nats-core:
+  nats:
     response-timeout: 5
     servers:
       - name: secure-unverified-client
@@ -449,7 +449,7 @@ You can either specify the trust store and password, or the server's certificate
 
 ```xml
 kumuluzee:
-  nats-core:
+  nats:
     servers:
       - name: secure
         addresses:
@@ -467,4 +467,3 @@ For Mutual TLS you also need to specify a key store.
 ### Build the microservice and run it
 
 To build the microservice and run the example, use the commands as described in previous sections.
-
