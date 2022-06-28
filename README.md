@@ -360,7 +360,7 @@ Let's configure 2 NATS connections we need for this application:
 * default: unsecured connection on the default address
 * secure: secured connection by Mutual TLS on localhost:4224
 
-```xml
+```yaml
 kumuluzee:
   nats:
     response-timeout: 5
@@ -404,7 +404,7 @@ See the next section to learn how to set up the TLS.
    
 4. Properly set the client's configuration file:
 
-   ```
+   ```yaml
    tls:
        ###
        trust-store-path: ...\resources\certs\truststore.jks
@@ -421,7 +421,7 @@ See the next section to learn how to set up the TLS.
 #### Examples
 
 ##### Default server connection with a custom response timeout
-```xml
+```yaml
 kumuluzee:
   nats:
     response-timeout: 5
@@ -429,7 +429,7 @@ kumuluzee:
 
 ##### TLS with a single address
 
-```xml
+```yaml
 kumuluzee:
   nats:
     response-timeout: 5
@@ -447,7 +447,7 @@ You can either specify the trust store and password, or the server's certificate
 
 ##### Mutual TLS with a single address
 
-```xml
+```yaml
 kumuluzee:
   nats:
     servers:
@@ -457,7 +457,7 @@ kumuluzee:
         tls:
           trust-store-path: C:\Users\Matej\IdeaProjects\Nats Core Sample\src\main\resources\certs\truststore.jks
         trust-store-password: password2
-        #          certificate-path: C:\Users\Matej\IdeaProjects\Nats Core Sample\src\main\resources\certs\server-cert.pem
+#        certificate-path: C:\Users\Matej\IdeaProjects\Nats Core Sample\src\main\resources\certs\server-cert.pem
         key-store-path: C:\Users\Matej\IdeaProjects\Nats Core Sample\src\main\resources\certs\keystore.jks
         key-store-password: password
 ```
