@@ -1,6 +1,6 @@
 kumuluzee:
   nats:
-    response-timeout: 5
+    response-timeout: 5S
     servers:
       - name: default
         addresses:
