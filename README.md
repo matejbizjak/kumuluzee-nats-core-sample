@@ -363,7 +363,7 @@ Let's configure 2 NATS connections we need for this application:
 ```yaml
 kumuluzee:
   nats:
-    response-timeout: 5S
+    response-timeout: 5s
     servers:
       - name: default
         addresses:
@@ -424,7 +424,7 @@ See the next section to learn how to set up the TLS.
 ```yaml
 kumuluzee:
   nats:
-    response-timeout: 5S
+    response-timeout: 5s
 ```
 
 ##### TLS with a single address
@@ -432,7 +432,7 @@ kumuluzee:
 ```yaml
 kumuluzee:
   nats:
-    response-timeout: 5S
+    response-timeout: 5s
     servers:
       - name: secure-unverified-client
         addresses:
