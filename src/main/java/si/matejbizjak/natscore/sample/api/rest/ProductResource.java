@@ -27,23 +27,23 @@ public class ProductResource {
 
     private final Product corn = new Product(1, "Corn", "Corn for popcorn - 1 kg", 3.2f, 12, null, LocalDateTime.now());
 
-    @GET
-    public Response getProduct() {
+    @POST
+    public Response postProduct() {
         productClient.sendProduct(corn);
         return Response.ok("The product was sent.").build();
     }
 
-    @GET
+    @POST
     @Path("/withResponse")
-    public Response getProductResponse() {
+    public Response postProductResponse() {
         String msgResponse = productClient.sendProductResponse(corn);
         return Response.ok(String.format("The product was sent. Even more, I also received a String as response: '%s'"
                 , msgResponse)).build();
     }
 
-    @GET
+    @POST
     @Path("/withResponseProduct")
-    public Response getProductResponseProduct() {
+    public Response postProductResponseProduct() {
         Product demoResponse = productClient.sendProductResponseProduct(corn);
         return Response.ok(String.format("The product was sent. Even more, I also received a product as response: '%s'"
                 , demoResponse.getName())).build();

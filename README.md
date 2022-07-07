@@ -272,7 +272,7 @@ public interface TextClient {
 }
 ```
 
-Implement the first JAX-RS resource with GET methods that initiate producing of the messages.
+Implement the first JAX-RS resource with POST methods that initiate producing of the messages.
 Inject the Nats Client `TextClient` we described before with the `@NatsClient` and call the corresponding methods.
 
 ```java
@@ -286,23 +286,23 @@ public class TextResource {
     @NatsClient
     private TextClient textClient;
 
-    @GET
-    public Response getText() {
+    @POST
+    public Response postText() {
         textClient.sendText("simple string");
         return Response.ok("A simple message was sent.").build();
     }
 
-    @GET
+    @POST
     @Path("/withResponse")
-    public Response getTextResponse() {
+    public Response postTextResponse() {
         String msgResponse = textClient.sendTextResponse("another simple string");
         return Response.ok(String.format("A simple message was sent. Even more, I also received a response: '%s'"
                 , msgResponse)).build();
     }
 
-    @GET
+    @POST
     @Path("/withResponseDynamicSubject")
-    public Response getTextDynamicSubject() {
+    public Response postTextDynamicSubject() {
         String msgResponse = textClient.sendTextDynamicSubjectResponse("dynamic", "simple string with dynamic subject");
         return Response.ok(String
                 .format("A simple message was sent to a dynamic subject. Even more, I also received a response: '%s'"

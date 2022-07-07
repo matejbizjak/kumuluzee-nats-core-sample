@@ -5,10 +5,7 @@ import si.matejbizjak.natscore.sample.api.client.TextClient;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -26,23 +23,23 @@ public class TextResource {
     @NatsClient
     private TextClient textClient;
 
-    @GET
-    public Response getText() {
+    @POST
+    public Response postText() {
         textClient.sendText("simple string");
         return Response.ok("A simple message was sent.").build();
     }
 
-    @GET
+    @POST
     @Path("/withResponse")
-    public Response getTextResponse() {
+    public Response postTextResponse() {
         String msgResponse = textClient.sendTextResponse("another simple string");
         return Response.ok(String.format("A simple message was sent. Even more, I also received a response: '%s'"
                 , msgResponse)).build();
     }
 
-    @GET
+    @POST
     @Path("/withResponseDynamicSubject")
-    public Response getTextDynamicSubject() {
+    public Response postTextDynamicSubject() {
         String msgResponse = textClient.sendTextDynamicSubjectResponse("dynamic", "simple string with dynamic subject");
         return Response.ok(String
                 .format("A simple message was sent to a dynamic subject. Even more, I also received a response: '%s'"
