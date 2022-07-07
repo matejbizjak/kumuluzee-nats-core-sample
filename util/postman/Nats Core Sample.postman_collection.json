@@ -10,9 +10,9 @@
 			"name": "product",
 			"item": [
 				{
-					"name": "getProduct",
+					"name": "postProduct",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "{{baseUrl}}/{{version}}/product",
@@ -28,9 +28,9 @@
 					"response": []
 				},
 				{
-					"name": "getProductResponse",
+					"name": "postProductResponse",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "{{baseUrl}}/{{version}}/product/withResponse",
@@ -47,9 +47,9 @@
 					"response": []
 				},
 				{
-					"name": "getProductResponseProduct",
+					"name": "postProductResponseProduct",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "{{baseUrl}}/{{version}}/product/withResponseProduct",
@@ -71,9 +71,9 @@
 			"name": "text",
 			"item": [
 				{
-					"name": "getText",
+					"name": "postText",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "{{baseUrl}}/{{version}}/text",
@@ -89,9 +89,9 @@
 					"response": []
 				},
 				{
-					"name": "getTextResponse",
+					"name": "postTextResponse",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "{{baseUrl}}/{{version}}/text/withResponse",
@@ -108,9 +108,9 @@
 					"response": []
 				},
 				{
-					"name": "getTextDynamicSubject",
+					"name": "postTextDynamicSubject",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "{{baseUrl}}/{{version}}/text/withResponseDynamicSubject",
