@@ -233,6 +233,23 @@ public class ProducerApplication extends Application {
 }
 ```
 
+#### Custom ObjectMapper
+
+First create a custom ObjectMapper for de/serialization by implementing `NatsObjectMapperProvider`.
+Here we register JavaTimeModule() which enables the usage of Java 8 Date & Time API.
+
+```java
+public class NatsMapperProvider implements NatsObjectMapperProvider {
+
+    @Override
+    public ObjectMapper provideObjectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper;
+    }
+}
+```
+
 #### Producer
 
 Create the interface TextClient, annotate it with `@RegisterRestClient` and specify the name of the NATS connection that the client will use.
