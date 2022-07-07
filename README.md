@@ -236,7 +236,7 @@ public class ProducerApplication extends Application {
 #### Custom ObjectMapper
 
 First create a custom ObjectMapper for de/serialization by implementing `NatsObjectMapperProvider`.
-Here we register JavaTimeModule() which enables the usage of Java 8 Date & Time API.
+Here we register `JavaTimeModule` which enables the usage of Java 8 Date & Time API.
 
 ```java
 public class NatsMapperProvider implements NatsObjectMapperProvider {
