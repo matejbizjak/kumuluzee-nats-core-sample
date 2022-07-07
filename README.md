@@ -169,6 +169,15 @@ If you would like to collect NATS related logs through the KumuluzEE Logs, you h
 </dependency>
 ```
 
+Add the `jackson-datatype-jsr310` dependency for our custom ObjectMapper provider, so it can work with Java 8 Date & Time API.
+
+```xml
+<dependency>
+    <groupId>com.fasterxml.jackson.datatype</groupId>
+    <artifactId>jackson-datatype-jsr310</artifactId>
+</dependency>
+```
+
 Add the `kumuluzee-maven-plugin` build plugin to package microservice as uber-jar:
 
 ```xml
@@ -226,95 +235,88 @@ public class ProducerApplication extends Application {
 
 #### Producer
 
-Create the interface SimpleClient, annotate it with `@RegisterRestClient` and specify the name of the NATS connection that the client will use.
+Create the interface TextClient, annotate it with `@RegisterRestClient` and specify the name of the NATS connection that the client will use.
 
-Annotate each producer method with `@Subject`. If you want to specify the subject dynamically, use parameter annotation (as you can see at the method `sendSimpleDynamicSubjectResponse()`).
+Annotate each producer method with `@Subject`.
+If you want to specify the subject dynamically, use parameter annotation (as you can see at the method `sendTextDynamicSubjectResponse()`).
 
 ```java
 @RegisterNatsClient(connection = "default")
-public interface SimpleClient {
+public interface TextClient {
 
-    @Subject(value = "simple1")
-    void sendSimple(String value);
+    @Subject(value = "text1")
+    void sendText(String value);
 
-    String sendSimpleDynamicSubjectResponse(@Subject String subject, String value);
+    @Subject(value = "text2")
+    String sendTextResponse(String value);
 
-    @Subject(value = "simple2")
-    String sendSimpleResponse(String value);
-
-    @Subject(value = "simple_async")
-    Future<String> sendSimpleResponseAsync(String value);
-
-    @Subject("empty")
-    String sendEmptyPayload(String value);
+    @Subject(connection = "default")
+    String sendTextDynamicSubjectResponse(@Subject String subject, String value);
 }
 ```
 
-Implement the first JAX-RS resource with GET methods that initiate producing of the messages. Inject the Nats Client `SimpleClient` we described before with the `@NatsClient` and call the corresponding methods.
+Implement the first JAX-RS resource with GET methods that initiate producing of the messages.
+Inject the Nats Client `TextClient` we described before with the `@NatsClient` and call the corresponding methods.
 
 ```java
-@Path("/simple/")
+@Path("/text/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @RequestScoped
-public class SimpleResource {
+public class TextResource {
 
     @Inject
     @NatsClient
-    private SimpleClient simpleClient;
+    private TextClient textClient;
 
     @GET
-    @Path("/")
-    public Response getSimple() {
-        simpleClient.sendSimple("simple string");
-        return Response.ok("A simple message should have been sent.").build();
-    }
-
-    @GET
-    @Path("/dynamicSubject")
-    public Response getSimpleDynamicSubject() {
-        String msgResponse = simpleClient.sendSimpleDynamicSubjectResponse("dynamic", "simple string with dynamic subject");
-        return Response.ok(String.format("Even more, I also received a response from a dynamic subject. It says: '%s'", msgResponse)).build();
+    public Response getText() {
+        textClient.sendText("simple string");
+        return Response.ok("A simple message was sent.").build();
     }
 
     @GET
     @Path("/withResponse")
-    public Response getSimpleResponse() {
-        String msgResponse = simpleClient.sendSimpleResponse("another simple string");
-        return Response.ok(String.format("Even more, I also received a response. It says: '%s'", msgResponse)).build();
+    public Response getTextResponse() {
+        String msgResponse = textClient.sendTextResponse("another simple string");
+        return Response.ok(String.format("A simple message was sent. Even more, I also received a response: '%s'"
+                , msgResponse)).build();
     }
 
     @GET
-    @Path("/emptyPayload")
-    public Response getEmptySubjectResponse() {
-        String msgResponse = simpleClient.sendEmptyPayload(null);
-        return Response.ok(String.format("Sending empty payload. The response was: '%s'", msgResponse)).build();
+    @Path("/withResponseDynamicSubject")
+    public Response getTextDynamicSubject() {
+        String msgResponse = textClient.sendTextDynamicSubjectResponse("dynamic", "simple string with dynamic subject");
+        return Response.ok(String
+                .format("A simple message was sent to a dynamic subject. Even more, I also received a response: '%s'"
+                        , msgResponse)).build();
     }
 }
 ```
 
 #### Consumer
 
-To consume messages, create a class and annotate it with `@NatsListener`. Specify the name of the connection the consumer will use.
+To consume messages, create a class and annotate it with `@NatsListener`.
+Specify the name of the connection the consumer will use.
 
 Then create consumer methods by annotating them with `@Subject` and specify the subject name. If you add more consumers to the same group, only one of them will get the message. 
 
 ```java
 @NatsListener(connection = "default")
-public class SimpleListener {
+public class TextListener {
 
-    @Subject(value = "simple1")
+    @Subject(value = "text1")
     public void receive(String value) {
         System.out.println(value);
     }
 
-    @Subject(value = "simple2", queue = "group1")
+    @Subject(value = "text2", queue = "group1")
     public String receiveAndReturn1(String value) {
         System.out.println(value);
         return value.toUpperCase();
     }
 
-    @Subject(value = "simple2", queue = "group1")
+    @Subject(value = "text2", queue = "group1")
     public String receiveAndReturn2(String value) {
         System.out.println(value);
         return value.toLowerCase();
@@ -323,35 +325,23 @@ public class SimpleListener {
     @Subject(value = "dynamic")
     public String receiveDynamicSubject(String value) {
         System.out.println(value);
-        return value.toUpperCase() + "_DYNAMIC_SUBJECT";
-    }
-
-    @Subject(value = "simple_async")
-    public String receiveAndReturnAsync(String value) {
-        System.out.println(value);
-        return value.toUpperCase() + "_ASYNC";
-    }
-
-    @Subject(value = "empty")
-    public String receiveEmpty(String value) {
-        System.out.println(value);
-        return value != null ? value.toUpperCase() + "_EMPTY_SUBJECT" : null;
+        return value.toUpperCase();
     }
 }
 ```
 
 ---
 
-You can continue developing another REST endpoint for producer and consumer: ComplexClient, ComplexResource and ComplexListener.
-The main difference is that the type of the messages is not String anymore, but a more complex class `Demo`.
+You can continue developing another REST endpoint for producer and consumer: ProductClient, ProductResource and ProductListener.
+The main difference is that the type of the messages is not String anymore, but a more complex class `Product`.
 The extension automatically de/serializes the data, just make sure to include the default constructor 
 ```java
-public Demo() {
+public Product() {
 }
 ```
 in your class. And that the consumer's message type matches the producer's.
 
-The complex variant is also using a different NATS connection that is secured with TLS.
+The product variant is also using a different NATS connection that is secured with the TLS.
 In the next section we learn how to configure the connections and how to use the TLS.
 
 ### Configuration

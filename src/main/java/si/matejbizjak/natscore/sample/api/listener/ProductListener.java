@@ -2,28 +2,28 @@ package si.matejbizjak.natscore.sample.api.listener;
 
 import com.kumuluz.ee.nats.core.annotations.NatsListener;
 import com.kumuluz.ee.nats.core.annotations.Subject;
-import si.matejbizjak.natscore.sample.api.entity.Demo;
+import si.matejbizjak.natscore.sample.api.entity.Product;
 
 /**
  * @author Matej Bizjak
  */
 
 @NatsListener
-public class ComplexListener {
+public class ProductListener {
 
-    @Subject(value = "complex1")
-    public void receive(Demo value) {
+    @Subject(value = "product1")
+    public void receive(Product value) {
         System.out.println(value.getName());
     }
 
-    @Subject(value = "complex2")
-    public String receiveAndReturnString(Demo value) {
+    @Subject(value = "product2")
+    public String receiveAndReturnString(Product value) {
         System.out.println(value.getName());
-        return value.getName().toUpperCase();
+        return value.getName().toLowerCase();
     }
 
-    @Subject(value = "complex3", connection = "secure")
-    public Demo receiveAndReturnDemo(Demo value) {
+    @Subject(value = "product3", connection = "secure")
+    public Product receiveAndReturnProduct(Product value) {
         System.out.println(value.getName());
         value.setName(value.getName().toUpperCase());
         return value;

@@ -8,20 +8,20 @@ import com.kumuluz.ee.nats.core.annotations.Subject;
  */
 
 @NatsListener(connection = "default")
-public class SimpleListener {
+public class TextListener {
 
-    @Subject(value = "simple1")
+    @Subject(value = "text1")
     public void receive(String value) {
         System.out.println(value);
     }
 
-    @Subject(value = "simple2", queue = "group1")
+    @Subject(value = "text2", queue = "group1")
     public String receiveAndReturn1(String value) {
         System.out.println(value);
         return value.toUpperCase();
     }
 
-    @Subject(value = "simple2", queue = "group1")
+    @Subject(value = "text2", queue = "group1")
     public String receiveAndReturn2(String value) {
         System.out.println(value);
         return value.toLowerCase();
@@ -30,18 +30,6 @@ public class SimpleListener {
     @Subject(value = "dynamic")
     public String receiveDynamicSubject(String value) {
         System.out.println(value);
-        return value.toUpperCase() + "_DYNAMIC_SUBJECT";
-    }
-
-    @Subject(value = "simple_async")
-    public String receiveAndReturnAsync(String value) {
-        System.out.println(value);
-        return value.toUpperCase() + "_ASYNC";
-    }
-
-    @Subject(value = "empty")
-    public String receiveEmpty(String value) {
-        System.out.println(value);
-        return value != null ? value.toUpperCase() + "_EMPTY_SUBJECT" : null;
+        return value.toUpperCase();
     }
 }
