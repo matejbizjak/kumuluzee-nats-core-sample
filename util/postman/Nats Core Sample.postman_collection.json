@@ -7,39 +7,39 @@
 	},
 	"item": [
 		{
-			"name": "complex",
+			"name": "product",
 			"item": [
 				{
-					"name": "complex",
+					"name": "getProduct",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/{{version}}/complex",
+							"raw": "{{baseUrl}}/{{version}}/product",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"{{version}}",
-								"complex"
+								"product"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "complexResponse",
+					"name": "getProductResponse",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/{{version}}/complex/withResponse",
+							"raw": "{{baseUrl}}/{{version}}/product/withResponse",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"{{version}}",
-								"complex",
+								"product",
 								"withResponse"
 							]
 						}
@@ -47,19 +47,19 @@
 					"response": []
 				},
 				{
-					"name": "superComplexResponse",
+					"name": "getProductResponseProduct",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/{{version}}/complex/withSuperResponse",
+							"raw": "{{baseUrl}}/{{version}}/product/withResponseProduct",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"{{version}}",
-								"complex",
-								"withSuperResponse"
+								"product",
+								"withResponseProduct"
 							]
 						}
 					},
@@ -68,39 +68,39 @@
 			]
 		},
 		{
-			"name": "simple",
+			"name": "text",
 			"item": [
 				{
-					"name": "simple",
+					"name": "getText",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/{{version}}/simple",
+							"raw": "{{baseUrl}}/{{version}}/text",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"{{version}}",
-								"simple"
+								"text"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "withResponse",
+					"name": "getTextResponse",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/{{version}}/simple/withResponse",
+							"raw": "{{baseUrl}}/{{version}}/text/withResponse",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"{{version}}",
-								"simple",
+								"text",
 								"withResponse"
 							]
 						}
@@ -108,38 +108,19 @@
 					"response": []
 				},
 				{
-					"name": "dynamicSubject",
+					"name": "getTextDynamicSubject",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/{{version}}/simple/dynamicSubject",
+							"raw": "{{baseUrl}}/{{version}}/text/withResponseDynamicSubject",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"{{version}}",
-								"simple",
-								"dynamicSubject"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "emptyPayload",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/{{version}}/simple/emptyPayload",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"{{version}}",
-								"simple",
-								"emptyPayload"
+								"text",
+								"withResponseDynamicSubject"
 							]
 						}
 					},
