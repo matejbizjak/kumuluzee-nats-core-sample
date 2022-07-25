@@ -14,6 +14,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Corn\",\r\n    \"description\": \"Corn for popcorn - 1 kg\",\r\n    \"price\": 3.2,\r\n    \"stock\": 12,\r\n    \"image\": null,\r\n    \"addedDate\": \"2022-07-20T18:35:24.00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{baseUrl}}/{{version}}/product",
 							"host": [
@@ -32,6 +41,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"Apple\",\r\n    \"description\": \"Fuji Apple - 1 kg\",\r\n    \"price\": 1.2,\r\n    \"stock\": 132,\r\n    \"image\": null,\r\n    \"addedDate\": \"2022-07-20T19:35:24.00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{baseUrl}}/{{version}}/product/withResponse",
 							"host": [
@@ -51,6 +69,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 3,\r\n    \"name\": \"Coconut\",\r\n    \"description\": \"Premium coconut from Vietnam\",\r\n    \"price\": 2.2,\r\n    \"stock\": 15,\r\n    \"image\": null,\r\n    \"addedDate\": \"2022-07-20T20:35:24.00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{baseUrl}}/{{version}}/product/withResponseProduct",
 							"host": [
@@ -75,6 +102,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\"simple string\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{baseUrl}}/{{version}}/text",
 							"host": [
@@ -93,6 +129,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\"Another Simple String\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{baseUrl}}/{{version}}/text/withResponse",
 							"host": [
@@ -112,15 +157,25 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\"another simple string but sent to a dynamic subject\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{baseUrl}}/{{version}}/text/withResponseDynamicSubject",
+							"raw": "{{baseUrl}}/{{version}}/text/withResponseDynamicSubject/dynamic",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"{{version}}",
 								"text",
-								"withResponseDynamicSubject"
+								"withResponseDynamicSubject",
+								"dynamic"
 							]
 						}
 					},

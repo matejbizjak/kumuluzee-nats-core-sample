@@ -24,25 +24,25 @@ public class TextResource {
     private TextClient textClient;
 
     @POST
-    public Response postText() {
-        textClient.sendText("simple string");
+    public Response postText(String message) {
+        textClient.sendText(message);
         return Response.ok("A simple message was sent.").build();
     }
 
     @POST
     @Path("/withResponse")
-    public Response postTextResponse() {
-        String msgResponse = textClient.sendTextResponse("another simple string");
-        return Response.ok(String.format("A simple message was sent. Even more, I also received a response: '%s'"
+    public Response postTextResponse(String message) {
+        String msgResponse = textClient.sendTextResponse(message);
+        return Response.ok(String.format("A simple message was sent. Even more, I also received a response: %s"
                 , msgResponse)).build();
     }
 
     @POST
-    @Path("/withResponseDynamicSubject")
-    public Response postTextDynamicSubject() {
-        String msgResponse = textClient.sendTextDynamicSubjectResponse("dynamic", "simple string with dynamic subject");
+    @Path("/withResponseDynamicSubject/{subject}")
+    public Response postTextDynamicSubject(@PathParam("subject") String subject, String message) {
+        String msgResponse = textClient.sendTextDynamicSubjectResponse(subject, message);
         return Response.ok(String
-                .format("A simple message was sent to a dynamic subject. Even more, I also received a response: '%s'"
-                        , msgResponse)).build();
+                .format("A simple message was sent to a dynamic subject %s. Even more, I also received a response: %s"
+                        , subject, msgResponse)).build();
     }
 }

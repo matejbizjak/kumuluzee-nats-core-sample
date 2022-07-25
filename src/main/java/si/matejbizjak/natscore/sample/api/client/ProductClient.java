@@ -2,7 +2,7 @@ package si.matejbizjak.natscore.sample.api.client;
 
 import com.kumuluz.ee.nats.core.annotations.RegisterNatsClient;
 import com.kumuluz.ee.nats.core.annotations.Subject;
-import si.matejbizjak.natscore.sample.api.entity.Product;
+import si.matejbizjak.natscore.sample.api.dto.Product;
 
 /**
  * @author Matej Bizjak
