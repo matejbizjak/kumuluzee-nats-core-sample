@@ -44,7 +44,6 @@
             <artifactId>kumuluzee-nats-core</artifactId>
             <version>${kumuluzee-nats.version}</version>
         </dependency>
-
         <dependency>
             <artifactId>kumuluzee-logs-log4j2</artifactId>
             <groupId>com.kumuluz.ee.logs</groupId>

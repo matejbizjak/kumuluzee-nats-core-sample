@@ -160,14 +160,6 @@ which should be in a file named `log4j2.xml` and located in `src/main/resources`
     </Loggers>
 </Configuration>
 ```
-If you would like to collect NATS related logs through the KumuluzEE Logs, you have to include the following `slf4j` implementation as dependency:
-```xml
-<dependency>
-    <groupId>org.apache.logging.log4j</groupId>
-    <artifactId>log4j-slf4j-impl</artifactId>
-    <version>${log4j-slf4j.version}</version>
-</dependency>
-```
 
 Add the `jackson-datatype-jsr310` dependency for our custom ObjectMapper provider, so it can work with Java 8 Date & Time API.
 
@@ -287,26 +279,26 @@ public class TextResource {
     private TextClient textClient;
 
     @POST
-    public Response postText() {
-        textClient.sendText("simple string");
+    public Response postText(String message) {
+        textClient.sendText(message);
         return Response.ok("A simple message was sent.").build();
     }
 
     @POST
     @Path("/withResponse")
-    public Response postTextResponse() {
-        String msgResponse = textClient.sendTextResponse("another simple string");
-        return Response.ok(String.format("A simple message was sent. Even more, I also received a response: '%s'"
+    public Response postTextResponse(String message) {
+        String msgResponse = textClient.sendTextResponse(message);
+        return Response.ok(String.format("A simple message was sent. Even more, I also received a response: %s"
                 , msgResponse)).build();
     }
 
     @POST
-    @Path("/withResponseDynamicSubject")
-    public Response postTextDynamicSubject() {
-        String msgResponse = textClient.sendTextDynamicSubjectResponse("dynamic", "simple string with dynamic subject");
+    @Path("/withResponseDynamicSubject/{subject}")
+    public Response postTextDynamicSubject(@PathParam("subject") String subject, String message) {
+        String msgResponse = textClient.sendTextDynamicSubjectResponse(subject, message);
         return Response.ok(String
-                .format("A simple message was sent to a dynamic subject. Even more, I also received a response: '%s'"
-                        , msgResponse)).build();
+                .format("A simple message was sent to a dynamic subject %s. Even more, I also received a response: %s"
+                        , subject, msgResponse)).build();
     }
 }
 ```
@@ -322,26 +314,28 @@ Then create consumer methods by annotating them with `@Subject` and specify the 
 @NatsListener(connection = "default")
 public class TextListener {
 
+    private static final Logger LOG = LogManager.getLogger(TextListener.class.getName());
+
     @Subject(value = "text1")
     public void receive(String value) {
-        System.out.println(value);
+        LOG.info(String.format("Method receive received message %s in subject text1.", value));
     }
 
     @Subject(value = "text2", queue = "group1")
     public String receiveAndReturn1(String value) {
-        System.out.println(value);
+        LOG.info(String.format("Method receiveAndReturn1 received message %s in subject text2.", value));
         return value.toUpperCase();
     }
 
     @Subject(value = "text2", queue = "group1")
     public String receiveAndReturn2(String value) {
-        System.out.println(value);
+        LOG.info(String.format("Method receiveAndReturn2 received message %s in subject text2.", value));
         return value.toLowerCase();
     }
 
     @Subject(value = "dynamic")
     public String receiveDynamicSubject(String value) {
-        System.out.println(value);
+        LOG.info(String.format("Method receiveDynamicSubject received message %s in subject dynamic.", value));
         return value.toUpperCase();
     }
 }
