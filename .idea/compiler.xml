@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="natscore-sample" />
+        <module name="kumuluzee-nats-core-sample" />
         <module name="Nats Core Sample" />
       </profile>
     </annotationProcessing>
