@@ -1,4 +1,8 @@
 kumuluzee:
+  server:
+    base-url: http://localhost:8083
+    http:
+      port: 8083
   nats:
     response-timeout: PT5S
     servers:
