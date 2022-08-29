@@ -91,6 +91,25 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "postProductsMapResponse",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{version}}/product/withResponseProductsMap",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"product",
+								"withResponseProductsMap"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
