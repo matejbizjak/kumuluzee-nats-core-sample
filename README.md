@@ -41,7 +41,7 @@ You can do this easily with Docker Compose using the configuration file we provi
 
 Simply run: 
 ```
-docker-compose -f util/run-nats-server/run-nats-servers.yaml up
+docker-compose -f util/run-nats-server/run-nats-servers.yaml up -d
 ```
 
 ## Usage
@@ -50,7 +50,7 @@ This example uses Docker Compose to set up NATS servers and maven to build and r
 
 1. Start the NATS server instances: 
 ```
-docker-compose -f util/run-nats-server/run-nats-servers.yaml up 
+docker-compose -f util/run-nats-server/run-nats-servers.yaml up -d 
 ```
 2. Build the sample using maven:
 ```
@@ -297,7 +297,7 @@ public class TextResource {
     public Response postTextDynamicSubject(@PathParam("subject") String subject, String message) {
         String msgResponse = textClient.sendTextDynamicSubjectResponse(subject, message);
         return Response.ok(String
-                .format("A simple message was sent to a dynamic subject %s. Even more, I also received a response: %s"
+                .format("A simple message was sent to a dynamic subject '%s'. Even more, I also received a response: %s"
                         , subject, msgResponse)).build();
     }
 }

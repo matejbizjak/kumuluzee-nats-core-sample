@@ -42,7 +42,7 @@ public class TextResource {
     public Response postTextDynamicSubject(@PathParam("subject") String subject, String message) {
         String msgResponse = textClient.sendTextDynamicSubjectResponse(subject, message);
         return Response.ok(String
-                .format("A simple message was sent to a dynamic subject %s. Even more, I also received a response: %s"
+                .format("A simple message was sent to a dynamic subject '%s'. Even more, I also received a response: %s"
                         , subject, msgResponse)).build();
     }
 }
