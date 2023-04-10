@@ -69,8 +69,6 @@ public class ProductResource {
         customerProductsMap.put("2", products2);
 
         Map<String, List<Product>> productsMapResponse = productClient.sendProductsMapResponse(customerProductsMap);
-//        return Response.ok(String.format("The map of products was sent. Even more, I also received a map of products as response. Its name is %s"
-//                , productsMapResponse)).build();
         return Response.status(Response.Status.OK).entity(productsMapResponse).build();
     }
 }
