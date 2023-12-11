@@ -259,6 +259,9 @@ public interface TextClient {
     @Subject(value = "text2")
     String sendTextResponse(String value);
 
+    @Subject(value = "text3")
+    CompletableFuture<String> sendTextResponseAsync(String value);
+
     @Subject(connection = "default")
     String sendTextDynamicSubjectResponse(@Subject String subject, String value);
 }
@@ -290,6 +293,15 @@ public class TextResource {
         String msgResponse = textClient.sendTextResponse(message);
         return Response.ok(String.format("A simple message was sent. Even more, I also received a response: %s"
                 , msgResponse)).build();
+    }
+
+    @POST
+    @Path("/withResponseAsync")
+    public CompletionStage<Response> postTextResponseAsync(String message) {
+        CompletableFuture<String> futureResponse = textClient.sendTextResponseAsync(message);
+        return futureResponse
+                .thenApply(response -> Response.ok(String.format("A simple message was sent. Even more, I also received a response asynchronously: %s", response)).build())
+                .exceptionally(e -> Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error processing response").build());
     }
 
     @POST
@@ -331,6 +343,12 @@ public class TextListener {
     public String receiveAndReturn2(String value) {
         LOG.info(String.format("Method receiveAndReturn2 received message %s in subject text2.", value));
         return value.toLowerCase();
+    }
+
+    @Subject(value = "text3")
+    public String receiveAndReturn3(String value) {
+        LOG.info(String.format("Method receiveAndReturn3 received message %s in subject text3.", value));
+        return "async: " + value;
     }
 
     @Subject(value = "dynamic")

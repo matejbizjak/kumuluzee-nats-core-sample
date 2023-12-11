@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 /**
  * @author Matej Bizjak
@@ -35,6 +37,15 @@ public class TextResource {
         String msgResponse = textClient.sendTextResponse(message);
         return Response.ok(String.format("A simple message was sent. Even more, I also received a response: %s"
                 , msgResponse)).build();
+    }
+
+    @POST
+    @Path("/withResponseAsync")
+    public CompletionStage<Response> postTextResponseAsync(String message) {
+        CompletableFuture<String> futureResponse = textClient.sendTextResponseAsync(message);
+        return futureResponse
+                .thenApply(response -> Response.ok(String.format("A simple message was sent. Even more, I also received a response asynchronously: %s", response)).build())
+                .exceptionally(e -> Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error processing response").build());
     }
 
     @POST

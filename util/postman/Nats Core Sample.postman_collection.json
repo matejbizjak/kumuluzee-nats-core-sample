@@ -172,6 +172,34 @@
 					"response": []
 				},
 				{
+					"name": "postTextResponseAsync",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\"Another Simple String Async\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{version}}/text/withResponseAsync",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{version}}",
+								"text",
+								"withResponseAsync"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "postTextDynamicSubject",
 					"request": {
 						"method": "POST",

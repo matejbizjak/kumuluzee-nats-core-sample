@@ -6,16 +6,18 @@ import si.matejbizjak.natscore.sample.api.dto.Product;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.math.BigDecimal;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletionStage;
 
 /**
  * @author Matej Bizjak
@@ -47,10 +49,11 @@ public class ProductResource {
 
     @POST
     @Path("/withResponseProduct")
-    public Response postProductResponseProduct(Product product) {
-        Product demoResponse = productClient.sendProductResponseProduct(product);
-        return Response.ok(String.format("The product was sent. Even more, I also received a product as response. Its name is %s"
-                , demoResponse.getName())).build();
+    public CompletionStage<Response> postProductResponseProduct(Product product) {
+        return productClient.sendProductResponseProduct(product)
+                .thenApply(response -> Response.ok(String.format("The product was sent. Even more, I also received a product as response. Its name is %s"
+                        , response.getName())).build())
+                .exceptionally(e -> Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error processing request").build());
     }
 
     @POST

@@ -31,6 +31,12 @@ public class TextListener {
         return value.toLowerCase();
     }
 
+    @Subject(value = "text3")
+    public String receiveAndReturn3(String value) {
+        LOG.info(String.format("Method receiveAndReturn3 received message %s in subject text3.", value));
+        return "async: " + value;
+    }
+
     @Subject(value = "dynamic")
     public String receiveDynamicSubject(String value) {
         LOG.info(String.format("Method receiveDynamicSubject received message %s in subject dynamic.", value));
